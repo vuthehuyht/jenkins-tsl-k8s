@@ -1,0 +1,42 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: jenkins-storage
+provisioner: kubernetes.io/azure-disk
+reclaimPolicy: Retain   # Retain or Delete
+volumeBindingMode: WaitForFirstConsumer   # WaitForFirstConsumer or Immediate
+allowVolumeExpansion: true    # true or false
+parameters:
+  storageaccounttype: Standard_LRS   # Premium or Standard
+  kind: Managed
+
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: jenkins-pv
+#   namespace: jenkins
+# spec:
+#   accessModes:
+#   - ReadWriteOnce   # ReadWriteOnce, ReadOnlyMany or ReadWriteMany
+#   storageClassName: jenkins-storage
+#   capacity:
+#     storage: 20Gi
+#   persistentVolumeReclaimPolicy: Retain
+#   hostPath:
+#     path: /data/jenkins-volume/
+
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: jenkins-pvc
+#   namespace: jenkins
+# spec:
+#   storageClassName: jenkins-storage
+#   volumeName: jenkins-pv
+#   accessModes:
+#   - ReadWriteOnce   # ReadWriteOnce, ReadOnlyMany or ReadWriteMany
+#   resources:
+#     requests:
+#       storage: 10Gi

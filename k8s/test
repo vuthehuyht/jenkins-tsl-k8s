@@ -1,0 +1,1 @@
+vault write auth/kubernetes/config kubernetes_host="https://k8s-vault-k8s-pd1bi1am.hcp.koreacentral.azmk8s.io:443"
